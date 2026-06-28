@@ -1,0 +1,7 @@
+<h2>ورود به حساب کاربری</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">ورود</button>
+</form>
+<p>حساب کاربری ندارید؟ <a href="{% url 'signup' %}">ثبت نام کنید</a></p>

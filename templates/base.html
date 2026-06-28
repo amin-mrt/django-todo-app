@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}برنامه مدیریت کارها{% endblock %}</title>
+    <!-- لینک سی‌اس‌اس بوت‌استرپ برای ظاهر شیک -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; font-family: Tahoma, sans-serif; }
+        .todo-card { border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+
+    <!-- منوی بالای سایت -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'task_list' %}">مدیریت تسک‌ها (ToDo)</a>
+            <div class="navbar-nav ms-auto">
+                {% if user.is_authenticated %}
+                    <span class="nav-link text-light me-3">خوش آمدید، {{ user.username }}</span>
+                    <!-- فرم خروج استاندارد جنگو -->
+                    <form action="{% url 'logout' %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-outline-danger">خروج</button>
+                    </form>
+                {% else %}
+                    <a class="nav-item nav-link" href="{% url 'login' %}">ورود</a>
+                    <a class="nav-item nav-link" href="{% url 'signup' %}">ثبت نام</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- محتوای اصلی صفحات در این بخش قرار می‌گیرد -->
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js"></script>
+</body>
+</html>

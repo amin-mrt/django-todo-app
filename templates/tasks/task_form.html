@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}مدیریت تسک{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card todo-card p-4 bg-white">
+            <h3 class="fw-bold mb-4">
+                {% if object %}ویرایش تسک{% else %}ایجاد تسک جدید{% endif %}
+            </h3>
+            
+            <form method="post">
+                {% csrf_token %}
+                
+                <!-- نمایش تمیز فرم جنگو با کلاس‌های بوت‌استرپ -->
+                <div class="mb-3">
+                    <label class="form-label">عنوان تسک:</label>
+                    <input type="text" name="title" class="form-control" value="{{ form.title.value|default_if_none:'' }}" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">توضیحات:</label>
+                    <textarea name="description" class="form-control" rows="3">{{ form.description.value|default_if_none:'' }}</textarea>
+                </div>
+
+                <div class="mb-3 form-check">
+                    <input type="checkbox" name="is_completed" class="form-check-input" id="is_completed" {% if form.is_completed.value %}checked{% endif %}>
+                    <label class="form-check-label" for="is_completed">این کار انجام شده است</label>
+                </div>
+
+                <button type="submit" class="btn btn-success w-100 mt-2">ذخیره اطلاعات</button>
+                <a href="{% url 'task_list' %}" class="btn btn-light w-100 mt-2">انصراف</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
