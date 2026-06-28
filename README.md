@@ -14,7 +14,7 @@
 
 ۱. مخزن پروژه را کلون کنید:
    ```bash
-   git clone <your-repository-url>
+   git clone https://github.com/amin-mrt/django-todo-app.git>
    ```
 ۲. محیط مجازی را ساخته و فعال کنید:
    ```bash
@@ -49,7 +49,7 @@ A fully functional Task Management (ToDo) web application built using Django. Th
 
 1. Clone the repository:
    ```bash
-   git clone <your-repository-url>
+   git clone https://github.com/amin-mrt/django-todo-app.git
    ```
 2. Create and activate a virtual environment:
    ```bash
