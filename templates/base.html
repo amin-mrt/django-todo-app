@@ -1,39 +1,52 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}برنامه مدیریت کارها{% endblock %}</title>
-    <!-- لینک سی‌اس‌اس بوت‌استرپ برای ظاهر شیک -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #f8f9fa; font-family: Tahoma, sans-serif; }
-        .todo-card { border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        body {
+            background-color: #f8f9fa;
+            font-family: "Vazirmatn";
+        }
+
+        .todo-card {
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
+
 <body>
 
-    <!-- منوی بالای سایت -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <div class="container">
+            <!-- برند  -->
             <a class="navbar-brand" href="{% url 'task_list' %}">مدیریت تسک‌ها (ToDo)</a>
-            <div class="navbar-nav ms-auto">
+
+            <div class="d-flex align-items-center">
                 {% if user.is_authenticated %}
-                    <span class="nav-link text-light me-3">خوش آمدید، {{ user.username }}</span>
-                    <!-- فرم خروج استاندارد جنگو -->
-                    <form action="{% url 'logout' %}" method="post" class="d-inline">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-sm btn-outline-danger">خروج</button>
-                    </form>
+                <span class="text-light me-3">{{ user.username }}</span>
+                <form action="{% url 'logout' %}" method="post" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-light btn-sm">خروج</button>
+                </form>
                 {% else %}
-                    <a class="nav-item nav-link" href="{% url 'login' %}">ورود</a>
-                    <a class="nav-item nav-link" href="{% url 'signup' %}">ثبت نام</a>
+                <a class="nav-link text-light me-3" href="{% url 'login' %}">ورود</a>
+                <a class="nav-link text-light" href="{% url 'signup' %}">ثبت نام</a>
                 {% endif %}
             </div>
         </div>
     </nav>
 
-    <!-- محتوای اصلی صفحات در این بخش قرار می‌گیرد -->
+    <!-- محتوای اصلی -->
     <div class="container">
         {% block content %}
         {% endblock %}
@@ -41,4 +54,5 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js"></script>
 </body>
+
 </html>
