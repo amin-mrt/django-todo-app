@@ -1,7 +1,87 @@
-<h2>ساخت حساب کاربری جدید</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">ثبت نام</button>
-</form>
-<p>قبلاً ثبت نام کرده‌اید؟ <a href="{% url 'login' %}">وارد شوید</a></p>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}ثبت نام{% endblock %}
+
+{% block content %}
+<style>
+    .helptext ul {
+        padding-right: 1.5rem;
+        margin-bottom: 0;
+        font-size: 0.875rem;
+        color: #6c757d;
+    }
+    .helptext ul li {
+        margin-bottom: 0.25rem;
+    }
+</style>
+<div class="container d-flex justify-content-center vh-100">
+    <div class="card shadow-lg p-4 my-auto" style="max-width: 500px; width: 100%; direction: rtl;">
+        <div class="card-body">
+            <h3 class="text-center mb-4 text-primary">ساخت حساب کاربری جدید</h3>
+            
+            <form method="post" class="needs-validation" novalidate>
+                {% csrf_token %}
+                
+                <!-- نمایش فیلدهای فرم با استایل Bootstrap -->
+                {% for field in form %}
+                <div class="mb-3">
+                    <label for="{{ field.id_for_label }}" class="form-label fw-bold">
+                        {{ field.label }}
+                    </label>
+                    {{ field }}
+                    {% if field.help_text %}
+                        <div class="form-text text-muted small">{{ field.help_text|safe }}</div>
+                    {% endif %}
+                    {% for error in field.errors %}
+                        <div class="invalid-feedback d-block">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+                
+                <!-- دکمه ثبت نام با استایل Bootstrap -->
+                <button type="submit" class="btn btn-success w-100 py-2 fw-bold">
+                    ثبت نام
+                </button>
+            </form>
+            
+            <!-- لینک ورود با استایل Bootstrap -->
+            <div class="text-center mt-3">
+                <p class="mb-0">
+                    قبلاً ثبت نام کرده‌اید؟ 
+                    <a href="{% url 'login' %}" class="text-primary fw-bold text-decoration-none">
+                        وارد شوید
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- اضافه کردن کلاس‌های Bootstrap به فیلدهای فرم -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const formInputs = document.querySelectorAll('form input, form select, form textarea');
+        formInputs.forEach(input => {
+            if (!input.classList.contains('form-control')) {
+                input.classList.add('form-control');
+            }
+        });
+        
+        // حذف کلاس form-control از checkbox و radio در صورت وجود
+        const checkboxInputs = document.querySelectorAll('input[type="checkbox"], input[type="radio"]');
+        checkboxInputs.forEach(input => {
+            input.classList.remove('form-control');
+            input.classList.add('form-check-input');
+        });
+    });
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('form input:not([type="hidden"]), form select, form textarea').forEach(function(input) {
+            if (!input.classList.contains('form-control')) {
+                input.classList.add('form-control');
+            }
+        });
+    });
+</script>
+{% endblock %}
